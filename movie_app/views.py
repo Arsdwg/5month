@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import DirectorSerializer, MovieSerializer, ReviewSerializer
 from .models import Director, Movie, Review
-
+from django.db.models import Avg
 
 # Create your views here.
 @api_view(['GET'])
@@ -60,6 +60,10 @@ def review_list_api_view(request):
 
     return Response(data=list_)
 
+def calculate_average_rating():
+    return Review.objects.aggregate(Avg('stars'))['stars__avg']
+
+
 @api_view(['GET'])
 def review_detail(request, id):
     try:
@@ -69,5 +73,5 @@ def review_detail(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     data = ReviewSerializer(product).data
-
+    average_rating = calculate_average_rating()
     return Response(data=data)
