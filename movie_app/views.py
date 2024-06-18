@@ -59,7 +59,8 @@ def movie_list_api_view(request):
             director_id=director_id,
         )
         movie.save()
-        return Response(data={'movie_id': movie.id, 'director': movie.director_id}, status=status.HTTP_201_CREATED)
+        return Response(data={'movie_id': movie.id, 'title': movie.title, 'description': movie.description,
+                              'duration': movie.duration, 'director_id': movie.director_id}, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def movie_detail(request, id):
