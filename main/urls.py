@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from movie_app import views
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('movie_app.urls')),
-    path('', include('users.urls')),
+    path('api/v1/', include('movie_app.urls')),
+    # # path('api/v1/directors/<int:id>/', views.directors_detail_api_view),
+    # path('api/v1/movies/', include('movie_app.urls')),
+    # # path('api/v1/movies/<int:id>/', views.movies_detail_api_view),
+    # path('api/v1/reviews/', include('movie_app.urls')),
+    # # path('api/v1/reviews/<int:id>/', views.reviews_detail_api_view)
+    path('api/v1/users/', include('users.urls')),
 ]
